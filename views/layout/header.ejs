@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MoDrive</title>
+    <link rel="shortcut icon" href="images/logo.webp" type="image/x-icon">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="header-left logo">
+        <img   src="images/logo.webp" alt="MoDrive-logo" />
+        <a href="/" style="cursor: pointer">
+          <h1>MoDrive</span></h1>
+        </a>
+      </div>
+      <div class="header-right">
+        <%if(locals.currentUser) {%>
+        <span>Hi <%= locals.currentUser.username %>!</span>
+
+        <a href="/logout">Log Out</a>
+        <%} else {%>
+        <a href="/login">Log in</a>
+        <a href="/signup">Sign up</a>
+        <%} %>
+      </div>
+    </header>
+
+    
+
+
+    

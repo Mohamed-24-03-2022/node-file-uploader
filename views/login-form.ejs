@@ -1,0 +1,21 @@
+<%- include('./layout/header' ) %>
+
+  <main>
+    <section class="signup-container">
+      <form class="signup-form" action="/login" method="POST">
+        <h2>Log in</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+        <button type="submit" class="signup-button">Log in</button>
+      </form>
+      <p class="text-block">
+        Don't have an account yet?
+        <a href="/signup">Sign Up</a>
+      </p>
+    </section>
+  </main>
+  </body>
+
+  </html>
