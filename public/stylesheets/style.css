@@ -131,6 +131,9 @@ main {
   margin-bottom: 10px;
 }
 
+.nav li {
+  border-radius: 5px;
+}
 .nav a {
   text-decoration: none;
   color: #000;
@@ -141,8 +144,8 @@ main {
   border-radius: 5px;
 }
 
-.nav a.active,
-.nav a:hover {
+.nav .active,
+.nav li:hover {
   background-color: #e5e7eb;
 }
 
@@ -154,6 +157,14 @@ main {
   background-color: #ffcccc;
 }
 
+.sign-out button {
+  background-color: #ffcccc;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
 .sign-out a {
   text-decoration: none;
   color: #000;
@@ -203,9 +214,62 @@ main {
 .folder {
   display: flex;
   align-items: center;
-  padding: 20px;
+  justify-content: space-evenly;
+  width: 120px;
+  height: 60px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: #000000;
+}
+
+.new-folder-form {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 25%;
+}
+
+.new-folder-form input {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.new-folder-form button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2563eb;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.new-folder-form button:hover {
+  background-color: #1d4ed8;
+}
+
+.folder-item {
+  display: flex;
+  justify-content: space-between;
+}
+.folder-item:first-child {
+  flex: 3;
+}
+
+a.delete {
+  color: #f95555;
+  text-decoration: none;
 }

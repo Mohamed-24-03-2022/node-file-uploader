@@ -13,6 +13,9 @@ const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const bcrypt = require("bcryptjs");
 
 var indexRouter = require("./routes/index");
+var foldersRouter = require("./routes/folders");
+var folderFilesRouter = require("./routes/folderFiles");
+// var filesRouter = require("./routes/files");
 
 var app = express();
 
@@ -35,7 +38,7 @@ app.set("view engine", "ejs");
 app.use(expressSession({
   secret: 'passport',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { maxAge: 24 * 60 * 60 * 1000 }, // equal to 1 day
   store: prismaSessionsStore
 }));
@@ -49,7 +52,11 @@ app.use(express.static(path.join(__dirname, "public")));
 passport.use(new LocalStrategy(async (username, password, done) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { username: username }
+      where: { username: username },
+      include: {
+        folders: true,
+        files: true
+      }
     });
 
     if (!user) {
@@ -75,7 +82,11 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { id: id }
+      where: { id: id },
+      include: {
+        folders: true,
+        files: true
+      }
     });
     done(null, user);
   } catch (error) {
@@ -83,10 +94,28 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+app.use((req, res, next) => {
+  if (req.path === '/login' || req.path === '/signup') {
+    return next()
+  }
+  if (!req.isAuthenticated()) {
+    return res.redirect('/login');
+  }
+  next();
+});
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 
 
 
 app.use("/", indexRouter);
+app.use("/folders", foldersRouter);
+app.use("/folders/:folderId/files", folderFilesRouter);
+// app.use("/files", filesRouter);
 
 
 

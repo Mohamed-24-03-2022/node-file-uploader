@@ -35,12 +35,9 @@ const validateUserSingUp = [
     .withMessage("Password doesn't match"),
 ];
 
+
 router.get('/', function (req, res, next) {
-  if (!req.isAuthenticated()) res.redirect('login');
-  else {
-    // if authenticated
-    res.render('home', { user: req.user });
-  }
+  res.render('folders');
 });
 
 router.get('/login', function (req, res, next) {
@@ -60,7 +57,7 @@ router.get('/signup', function (req, res, next) {
 router.post('/signup', validateUserSingUp, async function (req, res, next) {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    // TODO Dispay error on the views
+    // TODO Display error on the views
     return res.render('signup-form', { errors: result.array() });
   }
 
@@ -97,5 +94,6 @@ router.post('/signout', function (req, res, next) {
     res.redirect('/');
   });
 });
+
 
 module.exports = router;

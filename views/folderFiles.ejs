@@ -1,0 +1,14 @@
+<%- include('./layout/home-header') %>
+
+<section class="files">
+  <% if(locals.currentUser) { %>
+  <!--     -->
+  <% for( let i = 0; i < locals.currentUser.files.length; i++ ) { %>
+  <a href="/<%= locals.currentUser.files[i].id %>/files" class="file">
+    <i class="fas fa-file"></i>
+    file 1
+  </a>
+  <% } %> <% } %>
+</section>
+
+<%- include('./layout/home-footer' ) %>
