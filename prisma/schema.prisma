@@ -19,7 +19,7 @@ model User {
   email    String   @unique
   password String
   folders  Folder[]
-  files    File[]
+  // files    File[]
 }
 
 model Folder {
@@ -28,15 +28,20 @@ model Folder {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+  files     File[]
 }
 
 model File {
-  id         String   @id @default(uuid())
-  name       String
-  uploadedAt DateTime @default(now())
-  url        String
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
+  id          String   @id @default(uuid())
+  name        String
+  storageName String
+  uploadedAt  DateTime @default(now())
+  url         String
+  // user       User     @relation(fields: [userId], references: [id])
+  // userId     String
+  folder      Folder   @relation(fields: [folderId], references: [id])
+  folderId    String
+  size        Int
 }
 
 model Session {

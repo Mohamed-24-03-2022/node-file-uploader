@@ -1,14 +1,27 @@
 <%- include('./layout/home-header') %>
 
 <section class="files">
-  <% if(locals.currentUser) { %>
-  <!--     -->
-  <% for( let i = 0; i < locals.currentUser.files.length; i++ ) { %>
-  <a href="/<%= locals.currentUser.files[i].id %>/files" class="file">
+  <% if (locals.currentUser) { %>
+  <!--  -->
+  <% function formatFileSize(size) { if (size < 1024) { return size + ' B'; } else if (size <
+  1048576) { return (size / 1024).toFixed(2) + ' KB'; } else { return (size / 1048576).toFixed(2) +
+  ' MB'; } }; function formatDate(dateString) { const date = new Date(dateString); const options = {
+  weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:
+  '2-digit', second: '2-digit' }; return date.toLocaleDateString('en-US', options).replace(',', '');
+  } %>
+  <!--  -->
+  <% for (let i = 0; i < files.length; i++) { %>
+  <a href="files/<%= files[i].id %>" class="file">
     <i class="fas fa-file"></i>
-    file 1
+    <div class="file-info">
+      <p class="file-name"><%= files[i].name %></p>
+      <p class="file-details">
+        <span class="file-size"><%= formatFileSize(files[i].size) %></span>
+        <span class="file-uploaded"><%= formatDate(files[i].uploadedAt) %></span>
+      </p>
+    </div>
   </a>
   <% } %> <% } %>
 </section>
 
-<%- include('./layout/home-footer' ) %>
+<%- include('./layout/home-footer') %>

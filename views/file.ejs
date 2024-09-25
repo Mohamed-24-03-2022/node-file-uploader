@@ -1,0 +1,32 @@
+<%- include('./layout/home-header') %>
+
+<div class="file-detail">
+  <h1>File Details</h1>
+  <div class="file-info">
+    <p><strong>Name:</strong> <%= file.name %></p>
+    <p><strong>Uploaded At:</strong> <%= new Date(file.uploadedAt).toLocaleString() %></p>
+    <p><strong>Size:</strong> <%= (file.size / 1048576).toFixed(2) %> MB</p>
+    <p><strong>Folder:</strong> <%= file.folder.name %></p>
+    <div class="file-actions">
+      <!--  -->
+      <!--  -->
+      <!--  -->
+      <!--  -->
+      <a href="<%= file.url %>" class="btn-download" target="_blank" download="<%=file.name %>"
+        >Download</a
+      >
+      <form action="<%= file.id %>/download" method="POST" class="download-form">
+        <button type="submit" class="btn-download">Download</button>
+      </form>
+      <!--  -->
+      <!--  -->
+      <!--  -->
+      <!--  -->
+      <form action="<%= file.id %>" method="POST" class="delete-form">
+        <button type="submit" class="btn-delete">Delete File</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('./layout/home-footer') %>

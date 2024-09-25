@@ -5,6 +5,7 @@ const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const prisma = new (require('@prisma/client').PrismaClient)();
+const asyncHandler = require('express-async-handler')
 
 const validateUserSingUp = [
   body('username')
@@ -54,7 +55,7 @@ router.get('/signup', function (req, res, next) {
   res.render('signup-form');
 });
 
-router.post('/signup', validateUserSingUp, async function (req, res, next) {
+router.post('/signup', validateUserSingUp, asyncHandler(async function (req, res, next) {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     // TODO Display error on the views
@@ -63,30 +64,28 @@ router.post('/signup', validateUserSingUp, async function (req, res, next) {
 
   const { username, email, password } = req.body;
 
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const rows = await prisma.user.createManyAndReturn({
-      data: [
-        {
-          username,
-          email,
-          password: hashedPassword,
-          // folders: [],
-          // file: [],
-        },
-      ],
-    });
-    const user = rows[0];
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    req.login(user, (err) => {
-      if (err) return next(err);
-      return res.redirect('/');
-    });
-  } catch (err) {
-    next(err);
-  }
-});
+  const rows = await prisma.user.createManyAndReturn({
+    data: [
+      {
+        username,
+        email,
+        password: hashedPassword,
+      },
+    ],
+  });
+  const user = rows[0];
+
+  req.login(user, (err) => {
+    if (err) return next(err);
+    return res.redirect('/');
+  });
+
+}
+
+));
 
 router.post('/signout', function (req, res, next) {
   req.logout(function (err) {

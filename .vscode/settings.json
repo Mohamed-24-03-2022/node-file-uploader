@@ -3,5 +3,6 @@
   "editor.tokenColorCustomizations": {
     "comments": "",
     "textMateRules": []
-  }
+  },
+  "cSpell.words": ["cloudinary"]
 }

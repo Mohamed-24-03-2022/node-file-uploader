@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { body, validationResult } = require('express-validator');
 const prisma = new (require('@prisma/client').PrismaClient)();
+const asyncHandler = require('express-async-handler');
 
 const validateFolderCreation = body('name').trim().notEmpty()
   .withMessage('Folder name is required')
@@ -12,7 +13,7 @@ router.get('/', function (req, res, next) {
   res.render('folder-form');
 });
 
-router.post('/', validateFolderCreation, async function (req, res, next) {
+router.post('/', validateFolderCreation, asyncHandler(async function (req, res, next) {
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
@@ -21,42 +22,32 @@ router.post('/', validateFolderCreation, async function (req, res, next) {
   }
   const { name } = req.body;
 
-  try {
-    await prisma.folder.create({
-      data: {
-        name,
-        userId: req.user.id
-      }
-    });
+  await prisma.folder.create({
+    data: {
+      name,
+      userId: req.user.id
+    }
+  });
 
-    res.redirect('/');
-  } catch (err) {
-    next(err);
-  }
-})
+  res.redirect('/');
+}));
 
 router.get('/:id', function (req, res, next) {
   res.send('/:id');
 });
 
-router.get('/delete/:id', async function (req, res, next) {
+router.get('/delete/:id', asyncHandler(async function (req, res, next) {
+  // TODO cant delete a folder popup or force delete confirmation
+
   const { id } = req.params;
+  await prisma.folder.delete({
+    where: {
+      id: id
+    }
+  });
 
-  // TODO cant delete a folder popup or delete confirmation
-  try {
-    await prisma.folder.delete({
-      where: {
-        id: id
-      }
-    });
-
-    res.redirect('/');
-
-  } catch (err) {
-    next(err);
-  }
-
-});
+  res.redirect('/');
+}));
 
 
 module.exports = router;

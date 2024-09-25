@@ -208,6 +208,7 @@ main {
 
 .folders {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -224,6 +225,143 @@ main {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: #000000;
+}
+.files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 40px);
+  max-width: 400px;
+  padding: 15px;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: #2563eb;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.file:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.file .fa-file {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #2563eb;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.file-details {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 5px 0 0;
+}
+
+.file-size,
+.file-uploaded {
+  display: block;
+}
+
+@media (min-width: 600px) {
+  .file {
+    width: calc(50% - 40px);
+  }
+}
+
+@media (min-width: 900px) {
+  .file {
+    width: calc(33.333% - 40px);
+  }
+}
+
+/* styles.css or equivalent CSS file */
+
+.file-detail {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.file-info p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.file-info a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.file-info a:hover {
+  text-decoration: underline;
+}
+
+.file-actions {
+  margin-top: 20px;
+}
+
+.btn-download,
+.btn-delete {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btn-download {
+  background-color: #4caf50;
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-download:hover {
+  background-color: #45a049;
+}
+
+.btn-delete {
+  background-color: #e3342f;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #cc1f1a;
+}
+
+.delete-form {
+  display: inline;
 }
 
 .new-folder-form {
@@ -272,4 +410,52 @@ main {
 a.delete {
   color: #f95555;
   text-decoration: none;
+}
+
+.new-file-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.new-file-form div {
+  /* margin: 5px 0; */
+  font-size: small;
+}
+.new-file-form select {
+  /* width: 90%; */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.new-file-form select option {
+  padding: 10px;
+}
+
+.new-file-form input[type='text'] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.new-file-form button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2563eb;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.new-file-form button:hover {
+  background-color: #1d4ed8;
 }
