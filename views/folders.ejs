@@ -1,5 +1,14 @@
 <%- include('./layout/home-header') %>
 
+<!--  -->
+
+<% if (typeof locals.error !== 'undefined' && locals.error) { %>
+<div class="error-popup">
+  <p><%= error %></p>
+  <button class="close-btn">&times;</button>
+</div>
+<% } %>
+
 <section class="folders">
   <% if(locals.currentUser) { %>
   <!--  -->

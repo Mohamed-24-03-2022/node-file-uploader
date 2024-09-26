@@ -4,10 +4,7 @@ const prisma = new (require('@prisma/client').PrismaClient)();
 const asyncHandler = require('express-async-handler');
 
 const validateFolderCreation = body('name').trim().notEmpty()
-  .withMessage('Folder name is required')
-  .isAlphanumeric()
-  .withMessage('Folder name must contain only letters and numbers');
-
+  .withMessage("Folder name can't be empty")
 
 router.get('/', function (req, res, next) {
   res.render('folder-form');
@@ -17,7 +14,6 @@ router.post('/', validateFolderCreation, asyncHandler(async function (req, res, 
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
-    // TODO Display errors on the views
     return res.render('folder-form', { errors: result.array() });
   }
   const { name } = req.body;
@@ -33,20 +29,26 @@ router.post('/', validateFolderCreation, asyncHandler(async function (req, res, 
 }));
 
 router.get('/:id', function (req, res, next) {
-  res.send('/:id');
+  const { id } = req.params;
+  res.redirect(`/folders/${id}/files`);
 });
 
 router.get('/delete/:id', asyncHandler(async function (req, res, next) {
-  // TODO cant delete a folder popup or force delete confirmation
 
   const { id } = req.params;
-  await prisma.folder.delete({
+  prisma.folder.delete({
     where: {
       id: id
     }
-  });
+  }).then(() => {
+    res.redirect('/');
+  })
+    .catch((err) => {
+      if (err.code === 'P2003')
+        err.message = "Cant' delete a folder with existing files"
+      res.redirect(`/?errorMessage=${err.message}`);
+    })
 
-  res.redirect('/');
 }));
 
 

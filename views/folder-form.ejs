@@ -1,5 +1,16 @@
 <%- include('./layout/home-header' ) %>
 
+<!--  -->
+
+<% if (typeof locals.errors !== 'undefined') { %>
+<div class="error-popup">
+  <% errors.forEach(error => { %>
+  <p><%= error.msg %></p>
+  <% }) %>
+  <button class="close-btn">&times;</button>
+</div>
+<% } %>
+
 <form method="POST" action="/folders" class="new-folder-form">
   <input type="text" id="name" name="name" placeholder="Folder Name" required />
   <button>Add</button>

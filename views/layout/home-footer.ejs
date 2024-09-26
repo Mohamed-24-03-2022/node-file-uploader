@@ -1,5 +1,61 @@
 </main>
 </div>
 <script src="https://kit.fontawesome.com/4beab0cc1e.js" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const closeBtn = document.querySelector('.error-popup .close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        const errorPopup = document.querySelector('.error-popup');
+        if (errorPopup) {
+          errorPopup.style.display = 'none';
+        }
+      });
+    }
+  });
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    
+    const deleteFileForm = document.querySelector('.file-detail .delete-form');
+    if (deleteFileForm) {
+      deleteFileForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const confirmationPopUp = document.querySelector('.confirmation-popup');
+        if (confirmationPopUp.style.display === 'none') {
+          confirmationPopUp.style.display = 'block';
+        }
+      });
+    }
+    
+    const deleteConfirmationBtn = document.querySelector('.confirmation-popup .delete-btn');
+    if (deleteConfirmationBtn) {
+      deleteConfirmationBtn.addEventListener('click', function () {
+        const confirmationPopUp = document.querySelector('.confirmation-popup');
+        if (confirmationPopUp) {
+          confirmationPopUp.style.display = 'none';
+        }
+
+        document.querySelector('.file-detail .delete-form').submit();
+      });
+    }
+
+
+    const closeBtn = document.querySelector('.confirmation-popup .close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        const confirmationPopUp = document.querySelector('.confirmation-popup');
+        if (confirmationPopUp) {
+          confirmationPopUp.style.display = 'none';
+        }
+      });
+    }
+
+  });
+
+    
+ 
+
+</script>
 </body>
 </html>

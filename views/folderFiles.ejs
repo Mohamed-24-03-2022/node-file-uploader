@@ -5,14 +5,21 @@
   <!--  -->
   <% function formatFileSize(size) { if (size < 1024) { return size + ' B'; } else if (size <
   1048576) { return (size / 1024).toFixed(2) + ' KB'; } else { return (size / 1048576).toFixed(2) +
-  ' MB'; } }; function formatDate(dateString) { const date = new Date(dateString); const options = {
+  ' MB'; } } function formatDate(dateString) { const date = new Date(dateString); const options = {
   weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:
   '2-digit', second: '2-digit' }; return date.toLocaleDateString('en-US', options).replace(',', '');
-  } %>
+  } function isImageFile(fileName) { const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp',
+  'webp']; const extension = fileName.split('.').pop().toLowerCase(); return
+  imageExtensions.includes(extension); } function isImageFile(fileName) { const imageRegex =
+  /\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg)$/i; return imageRegex.test(fileName); } %> %>
   <!--  -->
   <% for (let i = 0; i < files.length; i++) { %>
   <a href="files/<%= files[i].id %>" class="file">
+    <% if (isImageFile(files[i].name)) { %>
+    <img src="<%= files[i].url %>" alt="<%= files[i].name %>" class="file-thumbnail" />
+    <% } else { %>
     <i class="fas fa-file"></i>
+    <% } %>
     <div class="file-info">
       <p class="file-name"><%= files[i].name %></p>
       <p class="file-details">

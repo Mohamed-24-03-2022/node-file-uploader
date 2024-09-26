@@ -9,6 +9,7 @@ const expressSession = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const bcrypt = require('bcryptjs');
+const cloudinary = require('cloudinary').v2;
 
 var indexRouter = require('./routes/index');
 var foldersRouter = require('./routes/folders');
@@ -16,16 +17,24 @@ var folderFilesRouter = require('./routes/folderFiles');
 var filesRouter = require('./routes/files');
 var fileRouter = require('./routes/file');
 
-var app = express();
 
 const prisma = new PrismaClient();
+
+var app = express();
+
+
+
 const prismaSessionsStore = new PrismaSessionStore(prisma, {
   checkPeriod: 2 * 60 * 1000,
   dbRecordIdIsSessionId: true,
   dbRecordIdFunction: undefined,
 });
 
-const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+  cloud_name: 'dnahc3t71',
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 
 app.set('views', path.join(__dirname, 'views'));
@@ -109,20 +118,14 @@ app.use((req, res, next) => {
 
 
 
-cloudinary.config({
-  cloud_name: 'dnahc3t71',
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 
-
-
+// TODO search for folders AND files simultaneously
 app.use('/', indexRouter);
 app.use('/folders', foldersRouter);
 app.use('/folders/:folderId/files', folderFilesRouter);
-app.use('/folders/:folderId/files/:fileId', fileRouter); // Handle get, delete AND download file
-app.use('/files', filesRouter); // Handle upload file GET POST
+app.use('/folders/:folderId/files/:fileId', fileRouter); // Handle get, delete file
+app.use('/files', filesRouter); // Handle uploading file GET POST
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

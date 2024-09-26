@@ -23,7 +23,6 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', asyncHandler(async function (req, res, next) {
-  // TODO delete confirmation popup
   const { folderId, fileId } = req.params;
 
   await prisma.file.delete({
@@ -37,15 +36,6 @@ router.post('/', asyncHandler(async function (req, res, next) {
   const deleteRes = await cloudinary.api.delete_resources([`${folderId}/${storageName}`]);
 
   res.redirect(`/folders/${folderId}/files`);
-}));
-
-router.post('/download', asyncHandler(async function (req, res, next) {
-  const { folderId, fileId } = req.params;
-
-
-  const { i, j } = getCurrentFileFolderIndex(req, folderId, fileId);
-  // res.download(req.user.folders[i].files[j].url)
-  res.redirect(`/folders/${folderId}/files/${fileId}`);
 }));
 
 

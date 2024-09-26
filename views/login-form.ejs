@@ -4,6 +4,12 @@
     <section class="signup-container">
       <form class="signup-form" action="/login" method="POST">
         <h2>Log in</h2>
+        <% if (locals.errors) { %>
+          <% for( let i = 0; i < locals.errors.length; i++ ) { %>
+            <span class="error"><%=locals.errors[i] %></span>
+          <% } %>
+        <% } %>
+
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required />
         <label for="password">Password:</label>

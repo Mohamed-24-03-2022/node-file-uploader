@@ -38,17 +38,22 @@ const validateUserSingUp = [
 
 
 router.get('/', function (req, res, next) {
-  res.render('folders');
+  // if (req.query.errorMessage)
+  res.render('folders', { error: req.query.errorMessage });
 });
 
 router.get('/login', function (req, res, next) {
-  // TODO Display error on the views if failed login
-  res.render('login-form');
+
+  res.render('login-form', { errors: req.session.messages });
 });
 
 router.post(
   '/login',
-  passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' })
+  (req, res, next) => {
+    req.session.messages = undefined;
+    next();
+  },
+  passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureMessage: true })
 );
 
 router.get('/signup', function (req, res, next) {
@@ -58,7 +63,6 @@ router.get('/signup', function (req, res, next) {
 router.post('/signup', validateUserSingUp, asyncHandler(async function (req, res, next) {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    // TODO Display error on the views
     return res.render('signup-form', { errors: result.array() });
   }
 
