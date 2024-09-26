@@ -120,7 +120,10 @@ main {
   width: 60px;
   height: 60px;
 }
-
+.nav {
+  overflow: scroll;
+  scrollbar-width: thin;
+}
 .nav ul {
   list-style: none;
   padding: 0;
@@ -189,12 +192,15 @@ main {
   gap: 10px;
   margin-bottom: 20px;
 }
-
+.header form {
+  width: 75%;
+}
 .header input {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 75%;
 }
 
 .header button {
@@ -206,7 +212,9 @@ main {
   cursor: pointer;
 }
 
-.folders {
+.folders,
+.files,
+.search {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -226,11 +234,7 @@ main {
   text-decoration: none;
   color: #000000;
 }
-.files {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+
 .files {
   display: flex;
   flex-wrap: wrap;

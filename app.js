@@ -16,6 +16,7 @@ var foldersRouter = require('./routes/folders');
 var folderFilesRouter = require('./routes/folderFiles');
 var filesRouter = require('./routes/files');
 var fileRouter = require('./routes/file');
+var searchRouter = require('./routes/search');
 
 
 const prisma = new PrismaClient();
@@ -122,6 +123,7 @@ app.use((req, res, next) => {
 
 // TODO search for folders AND files simultaneously
 app.use('/', indexRouter);
+app.use('/search', searchRouter);
 app.use('/folders', foldersRouter);
 app.use('/folders/:folderId/files', folderFilesRouter);
 app.use('/folders/:folderId/files/:fileId', fileRouter); // Handle get, delete file

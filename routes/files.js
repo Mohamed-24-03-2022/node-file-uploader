@@ -37,6 +37,7 @@ router.post('/', upload.single('fileUpload'), async function (req, res, next) {
           folderId,
           url: uploadRes.url,
           size: size,
+          userId: req.user.id
         },
       });
 

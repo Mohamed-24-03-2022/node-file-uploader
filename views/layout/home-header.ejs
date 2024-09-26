@@ -19,6 +19,15 @@
             <li>
               <a href="/" class="active"> <i class="fas fa-folder"></i> Home</a>
             </li>
+            <li>
+              <a href="/files" class="upload"><i class="fas fa-file"></i>Upload file</a>
+            </li>
+            <li>
+              <a href="/folders" class="new-folder">
+                <i class="fas fa-folder-plus"></i>
+                New folder
+              </a>
+            </li>
 
             <% for( let i = 0; i < locals.currentUser.folders.length; i++ ) { %>
             <li class="folder-item active">
@@ -34,15 +43,6 @@
               </a>
             </li>
             <% } %>
-
-            <li>
-              <a href="/files" class="upload"><i class="fas fa-file"></i>Upload file</a>
-            </li>
-            <li>
-              <a href="/folders" class="new-folder"
-                ><i class="fas fa-folder-plus"></i> New folder</a
-              >
-            </li>
           </ul>
         </nav>
 
@@ -54,13 +54,12 @@
       </aside>
       <main class="content">
         <div class="header">
-          <input type="text" placeholder="Shopping list, bahamas..." />
-          <button>Search</button>
+          <form action="/search" method="GET">
+            <input type="text" name="search" placeholder="Shopping list, bahamas..." />
+            <button>Search</button>
+          </form>
         </div>
         <!--______________________________________-->
         <!--______________________________________-->
         <!--______________________________________-->
-               
-
-
-        
+  

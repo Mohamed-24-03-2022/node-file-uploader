@@ -10,9 +10,19 @@ extension = fileName.split('.').pop().toLowerCase(); return imageExtensions.incl
 function isImageFile(fileName) { const imageRegex = /\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg)$/i;
 return imageRegex.test(fileName); } %> %>
 <!--  -->
-<section class="files">
-  <% if (locals.currentUser) { %> <% for (let i = 0; i < files.length; i++) { %>
-  <a href="files/<%= files[i].id %>" class="file">
+<section class="search">
+  <% if(locals.folders) { %>
+  <!--  -->
+  <% for( let i = 0; i < folders.length; i++ ) { %>
+  <a href="folders/<%= folders[i].id %>/files" class="folder">
+    <i class="fas fa-folder"></i>
+    <%= folders[i].name %>
+  </a>
+  <% } %> <% } %>
+
+  <!--  -->
+  <% if (locals.files) { %> <% for (let i = 0; i < files.length; i++) { %>
+  <a href="/folders/<%= files[i].folderId %>/files/<%= files[i].id %>" class="file">
     <% if (isImageFile(files[i].name)) { %>
     <img src="<%= files[i].url %>" alt="<%= files[i].name %>" class="file-thumbnail" />
     <% } else { %>
