@@ -13,6 +13,7 @@
     "cloudinary": "^2.5.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.4.5",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-async-handler": "^1.2.0",
@@ -37,6 +38,7 @@
   "homepage": "https://github.com/Mohamed-24-03-2022/node-file-uploader#readme",
   "description": "",
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9",
     "prisma": "^5.19.1"
   }
 }
