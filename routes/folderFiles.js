@@ -1,15 +1,6 @@
-const router = require("express").Router({ mergeParams: true });
+const router = require('express').Router({ mergeParams: true });
+const folderFilesController = require('../controllers/folderFilesController');
 
-router.get('/', async function (req, res, next) {
-  const { folderId } = req.params;
+router.get('/', folderFilesController.renderFolderFiles);
 
-  const currentFolderIndex = req.user.folders
-    .findIndex((folder) => folder.id === folderId)
-
-  const files = req.user.folders[currentFolderIndex].files;
-
-  res.render('folderFiles', { files });
-});
-
-
-module.exports = router
+module.exports = router;

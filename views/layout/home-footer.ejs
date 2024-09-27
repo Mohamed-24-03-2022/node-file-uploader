@@ -3,8 +3,12 @@
 <script src="https://kit.fontawesome.com/4beab0cc1e.js" crossorigin="anonymous"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const errorPopUp = document.querySelector('.error-popup');
     const closeBtn = document.querySelector('.error-popup .close-btn');
     if (closeBtn) {
+      setTimeout(() => {  
+        errorPopUp.style.display = 'none';
+      }, 2000);
       closeBtn.addEventListener('click', function () {
         const errorPopup = document.querySelector('.error-popup');
         if (errorPopup) {
